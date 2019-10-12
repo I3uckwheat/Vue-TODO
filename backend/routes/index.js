@@ -1,7 +1,12 @@
 const express = require('express');
+const passport = require('passport');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+const userRoutes = require("./UserRoutes");
+
+router.use(userRoutes)
+
+router.use('/', (req, res) => {
   res.send('hello world');
 })
 
