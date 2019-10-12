@@ -21,7 +21,7 @@ User.plugin(passportLocalMongoose);
 
 const UserModel = mongoose.model('User', User);
 Todo.pre('save', async function(next) {
-  if(!this.isModified()) {
+  if(!this.isModified() || this.slug) {
     return next();
   }
 
