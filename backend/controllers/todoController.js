@@ -3,8 +3,12 @@ const mongoose = require('mongoose');
 const User = mongoose.model('User');
 
 module.exports.getAll = async (req, res, next) => {
+  try {
   const user = await User.findOne({username: req.user.username});
   res.json(user.todos);
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports.create = async (req, res, next) => {
