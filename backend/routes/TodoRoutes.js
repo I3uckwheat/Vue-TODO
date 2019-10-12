@@ -1,19 +1,14 @@
 const express = require('express');
+const todoController = require('../controllers/todoController')
 const router = express.Router();
 
-router.get('/', (req, res) => {
-  // Get all todos for user
-  res.send('get /')
-});
+router.get('/', todoController.getAll);
+
+router.post('/', todoController.create);
 
 router.get('/:slug', (req, res) => {
   // Get one todo for user
   res.send('get /:slug')
-});
-
-router.post('/', (req, res) => {
-  // create todo
-  res.send('post /')
 });
 
 router.put('/:slug', (req, res) => {
