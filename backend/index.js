@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 mongoose.connect(process.env.DATABASE_URL, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
+  useCreateIndex: true,
   reconnectTries: Number.MAX_VALUE,
   reconnectInterval: 1000
 });
@@ -17,6 +18,8 @@ mongoose.Promise = global.Promise;
 mongoose.connection.on('error', (err) => {
   console.error(err.message);
 })
+
+require("./models/User")
 
 const app = require('./app');
 const port = process.env.PORT;
