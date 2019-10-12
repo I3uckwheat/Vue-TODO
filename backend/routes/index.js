@@ -1,13 +1,14 @@
 const express = require('express');
-const passport = require('passport');
 const router = express.Router();
 
 const userRoutes = require("./UserRoutes");
+const todoRoutes = require("./TodoRoutes");
 
-router.use(userRoutes)
+router.use('/user', userRoutes)
+router.use('/todos', todoRoutes)
 
-router.use('/', (req, res) => {
-  res.send('hello world');
+router.use((req, res) => {
+  res.sendStatus(404);
 })
 
 module.exports = router;
