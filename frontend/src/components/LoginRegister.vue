@@ -1,7 +1,8 @@
 <template>
-  <div v-if="showLogin" class="login-reg-container">
+  <div v-if="showLogin" @click="loginError = false" class="login-reg-container">
     <form @submit.prevent="login">
       <h3>Login</h3>
+      <p v-if="loginError">username or password is incorrect</p>
       <label for="username">Username</label>
       <input name="username" type="username" v-model="username" />
 
@@ -42,14 +43,22 @@ export default {
       username: "",
       password: "",
       confirmPassword: "",
-      showLogin: true
+      showLogin: true,
+      loginError: false
     }
   },
   methods: {
-    login() {
-      console.log('login');
+    async login() {
+      try {
+        await this.axios.post("http://localhost:3000/user/login", {
+          username: this.username,
+          password: this.password
+        });
+      } catch(err) {
+        if(err.response.status === 401) this.loginError = true;
+      }
     },
-    register() {
+    async register() {
       console.log('register');
     }
   }
