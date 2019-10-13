@@ -59,7 +59,7 @@ export default {
 <style scoped>
 .login-reg-container {
   border: 1px solid black;
-  max-width: 600px;
+  flex-basis: auto;
 }
 
 .login-reg-container form {

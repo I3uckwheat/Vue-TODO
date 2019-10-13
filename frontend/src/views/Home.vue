@@ -1,7 +1,14 @@
 <template>
-  <div>
+  <div class="login-container" v-if="true"> <!-- If not logged in -->
     <h1>Vue ToDo</h1>
-    <login-register></login-register>
+    <p>A place to track your todos, but made in Vue!</p>
+    <div class="login-register-container">
+      <login-register></login-register>
+    </div>
+  </div>
+
+  <div class="todo-container" v-else> <!-- if logged in, show TODOs -->
+    <p>Here are the TODOs</p>
   </div>
 </template>
 
@@ -16,3 +23,13 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+  .login-container {
+    width: 30%;
+  }
+
+  .todo-container {
+    width: 100%;
+  }
+</style>
