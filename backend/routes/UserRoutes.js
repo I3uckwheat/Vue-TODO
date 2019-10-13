@@ -5,8 +5,16 @@ const UserController = require('../controllers/UserController')
 
 router.post('/register', UserController.register); 
 
-router.post('/login', passport.authenticate('local'), (req, res, next) => {
-  res.sendStatus(200);
+router.post('/login', (req, res, next) => {
+  passport.authenticate('local', (err, user, info) => {
+    if (err) { return next(err); }
+    if (!user) return res.sendStatus(401);
+
+    req.logIn(user, function(err) {
+      if (err) return next(err);
+      return res.sendStatus(200);
+    });
+  })(req, res, next);
 });
 
 router.post('/logout', (req, res, next) => {

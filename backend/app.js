@@ -18,6 +18,7 @@ app.use(cors({
   methods:['GET','POST'],
   credentials: true // enable set cookie 
 }));
+
 app.use(cookieParser());
 
 app.use(session({
