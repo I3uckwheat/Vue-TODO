@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>Vue Todo!</h1>
     <router-view />
   </div>
 </template>
@@ -19,6 +20,8 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   color: #2c3e50;
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 }
 </style>

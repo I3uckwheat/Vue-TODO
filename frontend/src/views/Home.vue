@@ -1,7 +1,6 @@
 <template>
   <div class="login-container" v-if="true"> <!-- If not logged in -->
-    <h1>Vue ToDo</h1>
-    <p>A place to track your todos, but made in Vue!</p>
+    <p class="center-text">A place to track your todos, but made in Vue!</p>
     <div class="login-register-container">
       <login-register></login-register>
     </div>
@@ -31,5 +30,9 @@ export default {
 
   .todo-container {
     width: 100%;
+  }
+
+  .center-text {
+    text-align: center;
   }
 </style>
