@@ -5,6 +5,7 @@ const MongoStore = require('connect-mongo')(session);
 const passport = require('passport');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 
 // Local dependencies
 const routes = require('./routes')
@@ -12,6 +13,11 @@ const routes = require('./routes')
 
 const app = express();
 
+app.use(cors({
+  origin:['http://localhost:8080'],
+  methods:['GET','POST'],
+  credentials: true // enable set cookie 
+}));
 app.use(cookieParser());
 
 app.use(session({
