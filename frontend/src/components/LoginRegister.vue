@@ -56,6 +56,10 @@ export default {
           username: this.username,
           password: this.password
         });
+
+        await this.$store.dispatch('login', {
+          username: this.username
+        });
       } catch(err) {
         if(err.response.status === 401) this.loginError = true;
       }

@@ -5,22 +5,24 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    todos: []
+    isAuthenticated: false,
+    username: null,
+    todos: [],
   },
   mutations: {
-    addTodo(state) {
-
-    },
-    removeTodo(state) {
-
+    login(state, userDetails) {
+      state.isAuthenticated = userDetails.isAuthenticated;
+      state.username = userDetails.username;
     }
   },
   actions: {
-    addTodo(state) {
-      
-    },
-    removeTodo(state) {
+    async login({commit}, details) {
+      commit('login', {
+        isAuthenticated: true,
+        username: details.username
+      });
 
+      // Proceed to get TODOs 
     }
   }
 })

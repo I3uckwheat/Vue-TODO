@@ -1,5 +1,5 @@
 <template>
-  <div class="login-container" v-if="true"> <!-- If not logged in -->
+  <div class="login-container" v-if="!$store.state.isAuthenticated"> <!-- If not logged in -->
     <p class="center-text">A place to track your todos, but made in Vue!</p>
     <div class="login-register-container">
       <login-register></login-register>
