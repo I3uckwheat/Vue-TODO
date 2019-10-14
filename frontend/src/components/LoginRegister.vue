@@ -82,8 +82,7 @@ export default {
         });
 
       } catch(err) {
-        // TODO: get error from backend
-        this.registerError = "Registration is unsuccessful";
+        this.registerError = err.response.data.message;
       }
     }
   }
