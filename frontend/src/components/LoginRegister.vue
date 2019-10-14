@@ -16,9 +16,10 @@
     </form>
   </div>
 
-  <div v-else class="login-reg-container">
+  <div v-else class="login-reg-container" @click="registerError = null">
     <form @submit.prevent="register">
       <h3>Register</h3>
+      <p v-if="registerError">{{registerError}}</p>
       <label for="username">Username</label>
       <input name="username" type="username" v-model="username" />
 
@@ -44,7 +45,8 @@ export default {
       password: "",
       confirmPassword: "",
       showLogin: true,
-      loginError: false
+      loginError: false,
+      registerError: null
     }
   },
   methods: {
@@ -59,7 +61,20 @@ export default {
       }
     },
     async register() {
-      console.log('register');
+      if (this.password !== this.confirmPassword) {
+        this.registerError = "Your password confirmation does not match";
+        return;
+      }
+
+      try {
+        await this.axios.post("http://localhost:3000/user/register", {
+          username: this.username,
+          password: this.password
+        });
+      } catch(err) {
+        // TODO: get error from backend
+        this.registerError = "Registration is unsuccessful";
+      }
     }
   }
 }
