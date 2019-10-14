@@ -3,6 +3,8 @@ const passport = require('passport');
 const router = express.Router();
 const UserController = require('../controllers/UserController')
 
+router.get('/', UserController.getUser);
+
 router.post('/register', UserController.register); 
 
 router.post('/login', (req, res, next) => {
