@@ -75,6 +75,12 @@ export default {
           username: this.username,
           password: this.password
         });
+
+        this.$store.dispatch('login', {
+          username: this.username,
+          password: this.password
+        });
+
       } catch(err) {
         // TODO: get error from backend
         this.registerError = "Registration is unsuccessful";
