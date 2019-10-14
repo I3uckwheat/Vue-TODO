@@ -7,6 +7,7 @@
   </div>
 
   <div class="todo-container" v-else> <!-- if logged in, show TODOs -->
+    <button @click="$store.dispatch('logout')">logout</button>
     <p>Here are the TODOs</p>
   </div>
 </template>

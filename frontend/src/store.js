@@ -11,19 +11,39 @@ export default new Vuex.Store({
   },
   mutations: {
     login(state, userDetails) {
+      localStorage.setItem('isAuthenticated', true);
+      localStorage.setItem('username', userDetails.username);
+
       state.isAuthenticated = userDetails.isAuthenticated;
       state.username = userDetails.username;
+    },
+    logout(state) {
+      localStorage.setItem('isAuthenticated', false);
+      localStorage.setItem('username', null);
+
+      state.isAuthenticated = false;
+      state.username = null;
+      state.todos = [];
     }
   },
   actions: {
     async initialize({commit, dispatch}) {
       try {
+        // To prevent flashing on page load if logged in in the past
+        const isAuthenticated = localStorage.getItem('isAuthenticated');
+        if(isAuthenticated) {
+          commit('login', {
+            isAuthenticated: true,
+            username: localStorage.getItem('username')
+          });
+        }
+
+        // Validate that localStorage is correct
         const res = await Vue.axios.get('http://localhost:3000/user');
         const user = res.data;
-        if(!user.isAuthenticated) return;
         commit('login', {
-          isAuthenticated: true,
-          username: user.username
+          isAuthenticated: user.isAuthenticated,
+          username: user.username || null
         });
 
         // TODO proceed to get TODOs
@@ -38,6 +58,14 @@ export default new Vuex.Store({
       });
 
       // Proceed to get TODOs 
+    },
+    async logout({commit}) {
+      try {
+        const res = await Vue.axios.post('http://localhost:3000/user/logout');
+        commit('logout');
+      } catch(err) {
+        console.log(err);
+      }
     }
   }
 })
