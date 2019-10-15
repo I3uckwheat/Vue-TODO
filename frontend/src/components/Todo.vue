@@ -1,7 +1,6 @@
 <template>
-  <div>
-    <p>Entered: {{todo.entered}}</p>
-    <p>due: {{todo.due}}</p>
+    <p>Entered: {{new Date(todo.entered).toLocaleString()}}</p>
+    <p>due: {{new Date(todo.due).toLocaleString()}}</p>
     <p>completion status: {{todo.completed}}</p>
     <p>title: {{todo.title}}</p>
     <p>body: {{todo.body}}</p>
