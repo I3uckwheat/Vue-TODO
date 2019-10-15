@@ -27,45 +27,35 @@ export default new Vuex.Store({
     }
   },
   actions: {
-    async initialize({commit, dispatch}) {
-      try {
-        // To prevent flashing on page load if logged in in the past
-        const isAuthenticated = localStorage.getItem('isAuthenticated');
-        if(isAuthenticated) {
-          commit('login', {
-            isAuthenticated: true,
-            username: localStorage.getItem('username')
-          });
-        }
-
-        // Validate that localStorage is correct
-        const res = await Vue.axios.get('http://localhost:3000/user');
-        const user = res.data;
+    async initialize({commit}) {
+      // To prevent flashing on page load if logged in in the past
+      const isAuthenticated = localStorage.getItem('isAuthenticated');
+      if(isAuthenticated) {
         commit('login', {
-          isAuthenticated: user.isAuthenticated,
-          username: user.username || null
+          isAuthenticated: true,
+          username: localStorage.getItem('username')
         });
-
-        // TODO proceed to get TODOs
-      } catch(err) {
-        console.log(err);
       }
+
+      // Validate that localStorage is correct
+      const res = await Vue.axios.get('http://localhost:3000/user');
+      const user = res.data;
+      commit('login', {
+        isAuthenticated: user.isAuthenticated,
+        username: user.username || null
+      });
+
+      // TODO proceed to get TODOs
     },
-    async login({commit, dispatch}, details) {
+    async login({commit}, details) {
       commit('login', {
         isAuthenticated: true,
         username: details.username
       });
-
-      // Proceed to get TODOs 
     },
     async logout({commit}) {
-      try {
-        const res = await Vue.axios.post('http://localhost:3000/user/logout');
-        commit('logout');
-      } catch(err) {
-        console.log(err);
-      }
+      await Vue.axios.post('http://localhost:3000/user/logout');
+      commit('logout');
     }
   }
 })
