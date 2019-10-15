@@ -31,6 +31,8 @@ export default new Vuex.Store({
       } else {
         state.todos.push(todoData);
       }
+    completeTodo(state, slug) {
+      state.todos.find(todo => todo.slug == slug).completed = true;
     }
   },
   actions: {
@@ -68,6 +70,13 @@ export default new Vuex.Store({
     async logout({commit}) {
       await Vue.axios.post(`${process.env.VUE_APP_API}/user/logout`);
       commit('logout');
+    async completeTodo({commit}, slug) {
+      const res = await Vue.axios.put(`${process.env.VUE_APP_API}/todos/${slug}`, {
+        completed: true
+      });
+
+      commit('completeTodo', slug);
+      return res.status;
     }
   }
 })
