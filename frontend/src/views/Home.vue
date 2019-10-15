@@ -9,13 +9,7 @@
   <div class="todo-container" v-else> <!-- if logged in, show TODOs -->
     <button @click="$store.dispatch('logout')">logout</button>
     <div v-for="todo in $store.state.todos" :key="todo.slug">
-      <p>Entered: {{todo.entered}}</p>
-      <p>due: {{todo.due}}</p>
-      <p>completion status: {{todo.completed}}</p>
-      <p>title: {{todo.title}}</p>
-      <p>body: {{todo.body}}</p>
-      <p>slug: {{todo.slug}}</p>
-      <br>
+      <todo :todo="todo"></todo>
     </div>
   </div>
 </template>
@@ -23,11 +17,13 @@
 <script>
 // @ is an alias to /src
 import LoginRegister from "@/components/LoginRegister";
+import Todo from "@/components/Todo";
 
 export default {
   name: 'home',
   components: {
-    LoginRegister
+    LoginRegister,
+    Todo
   }
 }
 </script>
