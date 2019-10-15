@@ -14,7 +14,7 @@ const routes = require('./routes')
 const app = express();
 
 app.use(cors({
-  origin:[process.env.VUE_APP_API],
+  origin:['http://localhost:8080'],
   methods:['GET','POST'],
   credentials: true // enable set cookie 
 }));
