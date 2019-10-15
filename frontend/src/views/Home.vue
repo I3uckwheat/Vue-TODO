@@ -8,7 +8,15 @@
 
   <div class="todo-container" v-else> <!-- if logged in, show TODOs -->
     <button @click="$store.dispatch('logout')">logout</button>
-    <p>Here are the TODOs</p>
+    <div v-for="todo in $store.state.todos" :key="todo.slug">
+      <p>Entered: {{todo.entered}}</p>
+      <p>due: {{todo.due}}</p>
+      <p>completion status: {{todo.completed}}</p>
+      <p>title: {{todo.title}}</p>
+      <p>body: {{todo.body}}</p>
+      <p>slug: {{todo.slug}}</p>
+      <br>
+    </div>
   </div>
 </template>
 

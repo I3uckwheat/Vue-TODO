@@ -24,6 +24,13 @@ export default new Vuex.Store({
       state.isAuthenticated = false;
       state.username = null;
       state.todos = [];
+    },
+    addTodos(state, todoData) {
+      if(Array.isArray(todoData)) {
+        todoData.forEach(todo => state.todos.push(todo));
+      } else {
+        state.todos.push(todoData);
+      }
     }
   },
   actions: {
@@ -45,7 +52,11 @@ export default new Vuex.Store({
         username: user.username || null
       });
 
-      // TODO proceed to get TODOs
+      if(user.isAuthenticated) {
+        const todoRes = await Vue.axios.get(`${process.env.VUE_APP_API}/todos`);
+        commit('addTodos', todoRes.data);
+      }
+
     },
     async login({commit}, details) {
       commit('login', {
