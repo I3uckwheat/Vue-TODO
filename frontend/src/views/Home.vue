@@ -8,8 +8,12 @@
 
   <div class="todo-container" v-else> <!-- if logged in, show TODOs -->
     <button @click="$store.dispatch('logout')">logout</button>
+    <br>
+    <label> Show Completed Tasks
+      <input type="checkbox" v-model="showComplete" />
+    </label>
     <div v-for="todo in $store.state.todos" :key="todo.slug">
-      <todo :todo="todo"></todo>
+      <todo v-if="!todo.completed || showComplete" :todo="todo"></todo>
     </div>
   </div>
 </template>
@@ -21,10 +25,15 @@ import Todo from "@/components/Todo";
 
 export default {
   name: 'home',
+  data() {
+    return {
+      showComplete: false
+    }
+  },
   components: {
     LoginRegister,
     Todo
-  }
+  },
 }
 </script>
 

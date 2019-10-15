@@ -31,8 +31,12 @@ export default new Vuex.Store({
       } else {
         state.todos.push(todoData);
       }
-    completeTodo(state, slug) {
-      state.todos.find(todo => todo.slug == slug).completed = true;
+    },
+    deleteTodo(state, slug) {
+      state.todos = state.todos.filter(todo => todo.slug !== slug);
+    },
+    changeCompletionStatus(state, {slug, completed}) {
+      state.todos.find(todo => todo.slug == slug).completed = completed;
     }
   },
   actions: {
@@ -70,12 +74,26 @@ export default new Vuex.Store({
     async logout({commit}) {
       await Vue.axios.post(`${process.env.VUE_APP_API}/user/logout`);
       commit('logout');
+    },
+    async deleteTodo({commit}, slug) {
+      const res = await Vue.axios.delete(`${process.env.VUE_APP_API}/todos/${slug}`);
+      commit('deleteTodo', slug);
+      return res.status;
+    },
     async completeTodo({commit}, slug) {
       const res = await Vue.axios.put(`${process.env.VUE_APP_API}/todos/${slug}`, {
         completed: true
       });
 
-      commit('completeTodo', slug);
+      commit('changeCompletionStatus', {slug, completed: true});
+      return res.status;
+    },
+    async unCompleteTodo({commit}, slug) {
+      const res = await Vue.axios.put(`${process.env.VUE_APP_API}/todos/${slug}`, {
+        completed: false
+      });
+
+      commit('changeCompletionStatus', {slug, completed: false});
       return res.status;
     }
   }
