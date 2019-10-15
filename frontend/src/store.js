@@ -38,7 +38,7 @@ export default new Vuex.Store({
       }
 
       // Validate that localStorage is correct
-      const res = await Vue.axios.get('http://localhost:3000/user');
+      const res = await Vue.axios.get(`${process.env.VUE_APP_API}/user`);
       const user = res.data;
       commit('login', {
         isAuthenticated: user.isAuthenticated,
@@ -52,9 +52,10 @@ export default new Vuex.Store({
         isAuthenticated: true,
         username: details.username
       });
+
     },
     async logout({commit}) {
-      await Vue.axios.post('http://localhost:3000/user/logout');
+      await Vue.axios.post(`${process.env.VUE_APP_API}/user/logout`);
       commit('logout');
     }
   }
