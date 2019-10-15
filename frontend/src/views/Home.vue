@@ -9,6 +9,7 @@
   <div class="todo-container" v-else> <!-- if logged in, show TODOs -->
     <button @click="$store.dispatch('logout')">logout</button>
     <br>
+    <router-link to="/new-todo"><button>Add new task</button></router-link>
     <label> Show Completed Tasks
       <input type="checkbox" v-model="showComplete" />
     </label>
