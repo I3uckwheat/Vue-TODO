@@ -14,7 +14,7 @@ const routes = require('./routes')
 const app = express();
 
 app.use(cors({
-  origin:['http://localhost:8080'],
+  origin:[process.env.ORIGIN_URL],
   methods:['GET','POST','PUT','DELETE'],
   credentials: true // enable set cookie 
 }));
