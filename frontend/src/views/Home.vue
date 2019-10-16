@@ -13,9 +13,13 @@
     <label> Show Completed Tasks
       <input type="checkbox" v-model="showComplete" />
     </label>
-    <div v-for="todo in $store.state.todos" :key="todo.slug">
-      <todo v-if="!todo.completed || showComplete" :todo="todo"></todo>
-    </div>
+    <transition-group name="list" tag="div">
+        <todo 
+          v-for="todo in filteredTodos" 
+          :key="todo.slug" 
+          class="list-item" 
+          :todo="todo"></todo>
+    </transition-group>
   </div>
 </template>
 
@@ -29,6 +33,13 @@ export default {
   data() {
     return {
       showComplete: false
+    }
+  },
+  computed: {
+    filteredTodos() {
+      return this.$store.state.todos.filter(todo => {
+        return !todo.completed || this.showComplete
+      })
     }
   },
   components: {
@@ -49,5 +60,14 @@ export default {
 
   .center-text {
     text-align: center;
+  }
+
+  .list-enter-active, .list-leave-active {
+  transition: all .5s;
+  }
+
+  .list-enter, .list-leave-to /* .list-leave-active below version 2.1.8 */ {
+    opacity: 0;
+    transform: translateX(900px);
   }
 </style>
