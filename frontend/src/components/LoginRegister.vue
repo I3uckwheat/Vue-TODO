@@ -93,6 +93,7 @@ export default {
 .login-reg-container {
   border: 1px solid black;
   flex-basis: auto;
+  background: white;
 }
 
 .login-reg-container form {
