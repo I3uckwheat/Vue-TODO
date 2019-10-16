@@ -24,6 +24,7 @@ export default {
   },
   props: ["todo"],
   created() {
+    if(!this.todo) return;
     const getTwoDigits = (value) => value < 10 ? `0${value}` : value;
 
     const dueDate = new Date(this.todo.due);
