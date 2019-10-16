@@ -5,11 +5,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    initialized: false,
     isAuthenticated: false,
     username: null,
     todos: [],
   },
+  getters: {
+    getTodoBySlug: state => slug => {
+      return state.todos.find(todo => todo.slug === slug);
+    }
+  },
   mutations: {
+    initialize(state) {
+      state.initialized = true;
+    },
     login(state, userDetails) {
       localStorage.setItem('isAuthenticated', true);
       localStorage.setItem('username', userDetails.username);
@@ -62,7 +71,8 @@ export default new Vuex.Store({
         const todoRes = await Vue.axios.get(`${process.env.VUE_APP_API}/todos`);
         commit('addTodos', todoRes.data);
       }
-
+      
+      commit('initialize');
     },
     async login({commit}, details) {
       commit('login', {
@@ -99,6 +109,9 @@ export default new Vuex.Store({
     async addTodo({commit}, todo) {
       const res = await Vue.axios.post(`${process.env.VUE_APP_API}/todos`, todo);
       commit('addTodos', res.data);
+    },
+    async editTodo({commit}, todo) {
+
     }
   }
 })
