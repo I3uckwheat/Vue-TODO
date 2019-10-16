@@ -19,8 +19,6 @@ function authGuard(to, from, next) {
   if(store.state.isAuthenticated) {
     next();
   } else {
-    const err = new Error("Unauthorized")
-    err.code = 401
     next('error/401');
   }
 }
@@ -41,7 +39,7 @@ const router = new Router({
     },
     {
       path: '/error/:errCode',
-      name: 'Error',
+      name: 'ErrorCode',
       component: ErrorHandler,
     },
     {
@@ -54,7 +52,15 @@ const router = new Router({
       path: '/:slug/edit',
       name: 'EditTodo',
       component: EditTodo,
-      beforeEnter: authGuard
+      beforeEnter(to, from, next) {
+        if(!store.state.isAuthenticated) {
+          next('/error/401');
+        } else if(!store.getters.getTodoBySlug(to.params.slug)) {
+          next('/error/404');
+        } else {
+          next();
+        }
+      }
     },   
     {
       path: '*',
