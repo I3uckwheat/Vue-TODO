@@ -7,7 +7,7 @@
         <p>Not you? Click <button class="logout-btn" @click="$store.dispatch('logout')">here to log out</button>.</p>
       </div>
     </header>
-    <div>
+    <div :class="{'logged-out': !$store.state.isAuthenticated}">
       <loader v-if="!$store.state.initialized" type='ring'/>
       <router-view />
     </div>
@@ -65,6 +65,11 @@ header {
 }
 
 header.logged-out {
+  justify-content: center;
+}
+
+div.logged-out {
+  display: flex;
   justify-content: center;
 }
 
