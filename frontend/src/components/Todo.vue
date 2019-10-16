@@ -101,17 +101,4 @@ h1 {
 
   position: relative;
 }
-
-button {
-  background: white;
-  border: 2px solid #84c5f4;
-  border-radius: 4px;
-  margin-right: 8px;
-  padding: 4px 16px;
-  color: #003e6b;
-  font-size: 12px;
-  font-family: inherit;
-  text-transform: uppercase;
-  font-weight: 600;
-}
 </style>
