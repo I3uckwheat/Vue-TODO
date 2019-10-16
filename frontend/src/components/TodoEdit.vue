@@ -1,13 +1,25 @@
 <template>
-  <div>
-    <button @click="$router.push('/')">Cancel</button>
+  <div class='wrapper'>
     <form @submit.prevent="submit">
-      <input placeholder="Title" v-model="title" required />
-      <input placeholder="body" v-model="body" required />
-      <input type="date" v-model="date" required />
-      <input type="time" v-model="time" required />
-      <br>
-      <input type="submit" value="Submit" />
+      <label for="title">TITLE</label>
+      <input id="title" placeholder="Title" v-model="title" required />
+
+      <label>BODY</label>
+      <input id="body" placeholder="body" v-model="body" required />
+
+      <div class="date-input">
+        <p>DUE DATE</p>
+        <label for="date" hidden>Due Date</label>
+        <input id="time" type="date" v-model="date" required />
+
+        <label for="time" hidden>Due Time</label>
+        <input id="date" type="time" v-model="time" required />
+      </div>
+      
+      <div class="controls">
+        <button type="submit">submit</button>
+        <button @click.prevent="$router.push('/')">Cancel</button>
+      </div>
     </form>
   </div>
 </template>
@@ -48,5 +60,31 @@ export default {
 </script>
 
 <style scoped>
+form {
+  display: flex;
+  flex-direction: column;
+  color: #666;
+}
 
+form > input {
+  max-width: 420px;
+}
+
+form label,
+form .date-input {
+  margin-top: 20px;
+}
+
+.date-input p {
+  display: block;
+  margin: 0;
+}
+
+.date-input input {
+  width: 200px;
+}
+
+.controls {
+  margin-top: 27px;
+}
 </style>
