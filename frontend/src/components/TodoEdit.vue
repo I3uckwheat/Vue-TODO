@@ -1,12 +1,15 @@
 <template>
-  <form @submit.prevent="submit">
-    <input placeholder="Title" v-model="title" required />
-    <input placeholder="body" v-model="body" required />
-    <input type="date" v-model="date" required />
-    <input type="time" v-model="time" required />
-    <br>
-    <input type="submit" value="Submit" />
-  </form>
+  <div>
+    <button @click="$router.go(-1)">Cancel</button>
+    <form @submit.prevent="submit">
+      <input placeholder="Title" v-model="title" required />
+      <input placeholder="body" v-model="body" required />
+      <input type="date" v-model="date" required />
+      <input type="time" v-model="time" required />
+      <br>
+      <input type="submit" value="Submit" />
+    </form>
+  </div>
 </template>
 
 <script>

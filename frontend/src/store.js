@@ -95,6 +95,10 @@ export default new Vuex.Store({
 
       commit('changeCompletionStatus', {slug, completed: false});
       return res.status;
+    },
+    async addTodo({commit}, todo) {
+      const res = await Vue.axios.post(`${process.env.VUE_APP_API}/todos`, todo);
+      commit('addTodos', res.data);
     }
   }
 })

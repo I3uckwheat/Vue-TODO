@@ -1,12 +1,14 @@
 <template>
-  <edit-todo @submit="registerTodo"></edit-todo> 
+  <edit-todo @submit="submitTodo"></edit-todo> 
 </template>
 
 <script>
 import EditTodo from "@/components/TodoEdit";
 export default {
   methods: {
-    registerTodo(todo) {
+    async submitTodo(todo) {
+      await this.$store.dispatch('addTodo', todo);
+      this.$router.push('/');
     }
   },
   components: {
