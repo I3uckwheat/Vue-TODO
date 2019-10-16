@@ -29,6 +29,24 @@ body {
   background: #eee;
 }
 
+button {
+  background: white;
+  border: 2px solid #84c5f4;
+  border-radius: 4px;
+  margin-right: 8px;
+  padding: 4px 16px;
+  color: #003e6b;
+  font-size: 12px;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: 600;
+}
+
+button.delete {
+  border: 2px solid #c88a8a;
+  color: #a61b1b;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
