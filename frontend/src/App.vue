@@ -1,14 +1,17 @@
 <template>
   <div id="app">
     <h1>Vue Todo!</h1>
+    <loader v-if="!$store.state.initialized" type='ring'/>
     <router-view />
   </div>
 </template>
 
 <script>
+import Loader from "./components/Loader"
 export default {
   name: 'app',
   components: {
+    Loader
   }
 }
 </script>

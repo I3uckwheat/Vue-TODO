@@ -78,12 +78,8 @@ export default new Vuex.Store({
       
       commit('initialize');
     },
-    async login({commit}, details) {
-      commit('login', {
-        isAuthenticated: true,
-        username: details.username
-      });
-
+    async login({dispatch}) {
+      dispatch('initialize');
     },
     async logout({commit}) {
       await Vue.axios.post(`${process.env.VUE_APP_API}/user/logout`);
