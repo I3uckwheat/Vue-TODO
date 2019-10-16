@@ -1,21 +1,23 @@
 <template>
-  <div class="todo-container">
+  <section class="todo-container">
     <div class="mask" v-if="loading">
       <loader />
     </div>
+    <div class="todo-data">
+      <div class="flex-container">
+        <h1>{{todo.title}}</h1>
+        <p>due: {{new Date(todo.due).toLocaleString()}}</p>
+      </div>
+      <p>{{todo.body}}</p>
+      <p class="created">Created on: {{new Date(todo.entered).toLocaleString()}}</p>
+    </div>
+
     <div class="todo-controls">
       <button v-if="!todo.completed" @click="completeTodo" :disabled="loading">Complete</button>
       <button v-else @click="unCompleteTodo">Un-Complete</button>
       <router-link :to="`/${todo.slug}/edit`" :disabled="loading"><button>Edit</button></router-link>
     </div>
-
-    <div class="todo-data">
-      <p>Entered: {{new Date(todo.entered).toLocaleString()}}</p>
-      <p>due: {{new Date(todo.due).toLocaleString()}}</p>
-      <p>title: {{todo.title}}</p>
-      <p>body: {{todo.body}}</p>
-    </div>
-  </div>
+  </section>
 </template>
 
 <script>
@@ -51,12 +53,6 @@ export default {
 </script>
 
 <style scoped>
-.todo-container {
-  border: 1px solid black;
-  margin-bottom: 80px;
-  position: relative;
-}
-
 .mask {
   position: absolute;
   left: 0;
@@ -68,5 +64,54 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+p {
+  margin: 8px 0;
+}
+
+h1 {
+  text-transform: uppercase;
+  font-weight: 600;
+  margin: 0;
+  font-size: 26px;
+}
+
+.due {
+  color: #444;
+}
+
+.created {
+  color: #444;
+  font-size: 12px;
+}
+
+.flex-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.todo-container {
+  margin: 24px 0;
+  box-shadow: 0 1px 1px 0 rgba(0,0,0,.24), 0 1px 4px rgba(0,0,0,.12);
+  background: white;
+  max-width: 500px;
+  border-radius: 4px;
+  padding: 16px;
+
+  position: relative;
+}
+
+button {
+  background: white;
+  border: 2px solid #84c5f4;
+  border-radius: 4px;
+  margin-right: 8px;
+  padding: 4px 16px;
+  color: #003e6b;
+  font-size: 12px;
+  font-family: inherit;
+  text-transform: uppercase;
+  font-weight: 600;
 }
 </style>
