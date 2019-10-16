@@ -1,7 +1,8 @@
 <template>
   <div>
-    <button @click="deleteTodo">Delete</button>
+    <h2>Editing: {{$route.params.slug}}</h2>
     <todo-edit @submit="submitTodo" :todo="todo"></todo-edit> 
+    <button class="delete" @click="deleteTodo">Delete Todo</button>
   </div>
 </template>
 
@@ -33,5 +34,8 @@ export default {
 </script>
 
 <style scoped>
+button {
+  margin-top: 20px;
+}
 
 </style>
