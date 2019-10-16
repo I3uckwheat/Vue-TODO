@@ -78,7 +78,7 @@ export default new Vuex.Store({
       
       commit('initialize');
     },
-    async login({dispatch}, details) {
+    async login({dispatch}) {
       dispatch('initialize');
     },
     async logout({commit}) {
