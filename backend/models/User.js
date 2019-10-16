@@ -6,7 +6,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const Todo = new Schema({
   entered: {type: Date, default: Date.now()},
   title: String,
-  slug: {type: String, unique: true},
+  slug: {type: String},
   body: String,
   due: Date,
   completed: {type: Boolean, default: false},

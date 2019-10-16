@@ -1,8 +1,17 @@
 import Vue from 'vue'
+import store from "./store"
 import Router from 'vue-router'
 import Home from './views/Home.vue'
+import NewTodo from './views/NewTodo'
+import EditTodo from './views/EditTodo'
 
 Vue.use(Router)
+
+async function initialize() {
+  if(!store.state.initialized) {
+    await store.dispatch('initialize');
+  } 
+}
 
 export default new Router({
   mode: 'history',
@@ -11,15 +20,29 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home
+      component: Home,
+      async beforeEnter(to, from, next) {
+        await initialize()
+        next();
+      }
     },
     {
-      path: '/about',
-      name: 'about',
-      // route level code-splitting
-      // this generates a separate chunk (about.[hash].js) for this route
-      // which is lazy-loaded when the route is visited.
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
-    }
+      path: '/new-todo',
+      name: 'NewTodo',
+      component: NewTodo,
+      async beforeEnter(to, from, next) {
+        await initialize()
+        next();
+      }
+    },
+    {
+      path: '/:slug/edit',
+      name: 'EditTodo',
+      component: EditTodo,
+      async beforeEnter(to, from, next) {
+        await initialize()
+        next();
+      }
+    }   
   ]
-})
+});

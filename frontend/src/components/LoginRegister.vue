@@ -52,9 +52,13 @@ export default {
   methods: {
     async login() {
       try {
-        await this.axios.post("http://localhost:3000/user/login", {
+        await this.axios.post(`${process.env.VUE_APP_API}/user/login`, {
           username: this.username,
           password: this.password
+        });
+
+        await this.$store.dispatch('login', {
+          username: this.username
         });
       } catch(err) {
         if(err.response.status === 401) this.loginError = true;
@@ -67,13 +71,18 @@ export default {
       }
 
       try {
-        await this.axios.post("http://localhost:3000/user/register", {
+        await this.axios.post(`${process.env.VUE_APP_API}/user/register`, {
           username: this.username,
           password: this.password
         });
+
+        this.$store.dispatch('login', {
+          username: this.username,
+          password: this.password
+        });
+
       } catch(err) {
-        // TODO: get error from backend
-        this.registerError = "Registration is unsuccessful";
+        this.registerError = err.response.data.message;
       }
     }
   }
