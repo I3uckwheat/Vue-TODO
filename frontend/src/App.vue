@@ -4,7 +4,7 @@
       <h1>Vue Todo!</h1>
       <div class="user" v-if="$store.state.username">
         <p>Hello <span class="username">{{$store.state.username}},</span></p>
-        <p>Not you? Click <button class="logout-btn" @click="$store.dispatch('logout')">here to log out</button>.</p>
+        <p>Not you? Click <button class="logout-btn" @click="$store.dispatch('logout')">here to log out.</button></p>
       </div>
     </header>
     <div :class="{'logged-out': !$store.state.isAuthenticated}">
