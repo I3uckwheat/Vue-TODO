@@ -8,12 +8,20 @@
 
   <div class="todo-container" v-else> <!-- if logged in, show TODOs -->
     <router-link to="/new-todo"><button>Add new task</button></router-link>
+
+    <label for="sorting">Sort By: </label>
+    <select id="sorting" v-model="sorting">
+      <option value="due">Date Due</option>
+      <option value="created">Date Created</option>
+    </select>
+
     <label> Show Completed Tasks
       <input type="checkbox" v-model="showComplete" />
     </label>
+
     <transition-group name="list" tag="div">
         <todo 
-          v-for="todo in filteredTodos" 
+          v-for="todo in sortedTodos" 
           :key="todo.slug" 
           class="list-item" 
           :todo="todo"></todo>
@@ -30,7 +38,8 @@ export default {
   name: 'home',
   data() {
     return {
-      showComplete: false
+      showComplete: false,
+      sorting: "due"
     }
   },
   computed: {
@@ -38,6 +47,18 @@ export default {
       return this.$store.state.todos.filter(todo => {
         return !todo.completed || this.showComplete
       })
+    },
+    sortedTodos() {
+      const sortedTodos = [...this.filteredTodos];
+      sortedTodos.sort((a, b) => {
+        if(this.sorting === 'created') {
+          return new Date(a.created) - new Date(b.created);
+        } else {
+          return new Date(a.due) - new Date(b.due);
+        }
+      });
+
+      return sortedTodos;
     }
   },
   components: {
