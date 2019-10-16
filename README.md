@@ -6,7 +6,7 @@
 
 1. Navigate to `./backend`
 2. Run `npm i`
-3. Run copy `sample.env` to `.env` and fill out proper information, pay special attention to the DB connection string
+3. Copy `sample.env` to `.env` and fill out proper information, pay special attention to the DB connection string
 4. `npm run dev` 
 
 ## Frontend
