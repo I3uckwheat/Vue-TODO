@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="$router.go(-1)">Cancel</button>
+    <button @click="$router.push('/')">Cancel</button>
     <form @submit.prevent="submit">
       <input placeholder="Title" v-model="title" required />
       <input placeholder="body" v-model="body" required />
@@ -21,6 +21,18 @@ export default {
       title: null,
       body: null
     }
+  },
+  props: ["todo"],
+  created() {
+    const getTwoDigits = (value) => value < 10 ? `0${value}` : value;
+
+    const dueDate = new Date(this.todo.due);
+    this.title = this.todo.title
+    this.body = this.todo.body
+
+
+    this.date = `${dueDate.getFullYear()}-${getTwoDigits(dueDate.getMonth())}-${getTwoDigits(dueDate.getDay())}`;
+    this.time = `${getTwoDigits(dueDate.getHours())}:${getTwoDigits(dueDate.getMinutes())}`;
   },
   methods: {
     submit() {

@@ -46,6 +46,10 @@ export default new Vuex.Store({
     },
     changeCompletionStatus(state, {slug, completed}) {
       state.todos.find(todo => todo.slug == slug).completed = completed;
+    },
+    editTodo(state, todoData) {
+      const index = state.todos.findIndex(todo => todo.slug === todoData.slug);
+      state.todos[index] = todoData;
     }
   },
   actions: {
@@ -111,7 +115,8 @@ export default new Vuex.Store({
       commit('addTodos', res.data);
     },
     async editTodo({commit}, todo) {
-
+      await Vue.axios.put(`${process.env.VUE_APP_API}/todos/${todo.slug}`, todo);
+      commit('editTodo', todo);
     }
   }
 })

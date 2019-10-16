@@ -3,7 +3,7 @@
     <div class="todo-controls">
       <button v-if="!todo.completed" @click="$store.dispatch('completeTodo', todo.slug)">Complete</button>
       <button v-else @click="$store.dispatch('unCompleteTodo', todo.slug)">Un-Complete</button>
-      <button>Edit</button>
+      <router-link :to="`/${todo.slug}/edit`"><button>Edit</button></router-link>
     </div>
 
     <div class="todo-data">
