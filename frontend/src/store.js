@@ -49,7 +49,7 @@ export default new Vuex.Store({
     },
     editTodo(state, todoData) {
       const index = state.todos.findIndex(todo => todo.slug === todoData.slug);
-      state.todos[index] = todoData;
+      state.todos[index] = {...state.todos[index], ...todoData};
     }
   },
   actions: {
