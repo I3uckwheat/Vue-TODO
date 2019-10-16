@@ -7,10 +7,10 @@
         <p>Not you? Click <button class="logout-btn" @click="$store.dispatch('logout')">here to log out</button>.</p>
       </div>
     </header>
-    <body>
+    <div>
       <loader v-if="!$store.state.initialized" type='ring'/>
       <router-view />
-    </body>
+    </div>
   </div>
 </template>
 
@@ -25,6 +25,10 @@ export default {
 </script>
 
 <style>
+body {
+  background: #eee;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
