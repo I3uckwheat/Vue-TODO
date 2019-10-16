@@ -1,5 +1,8 @@
 <template>
-  <todo-edit @submit="submitTodo" :todo="todo"></todo-edit> 
+  <div>
+    <button @click="deleteTodo">Delete</button>
+    <todo-edit @submit="submitTodo" :todo="todo"></todo-edit> 
+  </div>
 </template>
 
 <script>
@@ -7,14 +10,20 @@ import TodoEdit from "@/components/TodoEdit";
 export default {
   methods: {
     async submitTodo(todo) {
-      const slug = this.$route.params.slug;
-      await this.$store.dispatch('editTodo', {slug: slug, ...todo});
+      await this.$store.dispatch('editTodo', {slug: this.slug, ...todo});
+      this.$router.push('/');
+    },
+    async deleteTodo() {
+      await this.$store.dispatch('deleteTodo', this.slug)
       this.$router.push('/');
     }
   },
   computed: {
     todo() {
-      return this.$store.getters.getTodoBySlug(this.$route.params.slug);
+      return this.$store.getters.getTodoBySlug(this.slug);
+    },
+    slug() {
+      return this.$route.params.slug;
     }
   },
   components: {
